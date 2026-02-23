@@ -21,7 +21,7 @@ class Classroom:
     def __init__(self, students):
         self.students = students
 
-c = Classroom(["Miko", "Zheks"])
+c = Classroom(["Miya", "lily"])
 print(c.students)
 
 #4 Constructor with calculation
