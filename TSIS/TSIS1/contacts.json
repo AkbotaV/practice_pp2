@@ -1,0 +1,86 @@
+[
+  {
+    "username": "Aigerim",
+    "email": "aigerim@gmail.com",
+    "birthday": "1995-03-15",
+    "group": "Friend",
+    "phones": [
+      {
+        "phone": "+77001234567",
+        "type": "mobile"
+      },
+      {
+        "phone": "+77001234568",
+        "type": "home"
+      }
+    ]
+  },
+  {
+    "username": "Daniyar",
+    "email": "daniyar@company.kz",
+    "birthday": "1990-07-22",
+    "group": "Work",
+    "phones": [
+      {
+        "phone": "+77009876543",
+        "type": "work"
+      }
+    ]
+  },
+  {
+    "username": "Aliya",
+    "email": "aliya@mail.ru",
+    "birthday": "1998-11-01",
+    "group": "Family",
+    "phones": [
+      {
+        "phone": "+77015551234",
+        "type": "home"
+      },
+      {
+        "phone": "+77015551235",
+        "type": "mobile"
+      }
+    ]
+  },
+  {
+    "username": "Ali",
+    "email": "ali@gmail.com",
+    "birthday": "1993-05-30",
+    "group": "Friend",
+    "phones": [
+      {
+        "phone": "87012345678",
+        "type": "mobile"
+      }
+    ]
+  },
+  {
+    "username": "Aruzhan",
+    "email": "aruzhan@outlook.com",
+    "birthday": "2000-01-12",
+    "group": "Other",
+    "phones": [
+      {
+        "phone": "87098765432",
+        "type": "mobile"
+      }
+    ]
+  },
+  {
+    "username": "Nursultan",
+    "email": "nursultan@company.kz",
+    "birthday": "1988-09-08",
+    "group": "Work",
+    "phones": [
+      {
+        "phone": "87771234567",
+        "type": "work"
+      },
+      {
+        "phone": "87771234568",
+        "type": "mobile"
+      }
+    ]
+  }
+]
