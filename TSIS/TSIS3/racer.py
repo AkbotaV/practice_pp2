@@ -6,6 +6,8 @@ from ui import main_menu, leaderboard_screen, settings_screen, username_input
 from persistence import load_settings, save_score
 import os
 
+
+#getting current file directory to correctly load assets
 BASE_DIR = os.path.dirname(__file__)
 ASSETS = os.path.join(BASE_DIR, "assets")
 
@@ -16,7 +18,9 @@ screen_width=400
 screen_height=600
 screen=pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("Racer")
-settings = load_settings()
+
+settings = load_settings() #loading saved game settings like difficulty, sound and car color
+
 
 SPAWN_COIN=pygame.USEREVENT+2
 pygame.time.set_timer(SPAWN_COIN,1000)
@@ -30,7 +34,8 @@ font_small=pygame.font.Font(None,40)
 game_over=font.render("GAME OVER",True,(0,0,0))
 
 clock = pygame.time.Clock()
-N = 50
+N = 50 #setting number of coins needed to increase speed level
+
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
@@ -50,7 +55,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self,color):
       super().__init__()
       self.image = pygame.image.load(os.path.join(ASSETS, f"player_{color}.png"))
-      self.image = pygame.transform.scale(self.image, (50, 80))
+      self.image = pygame.transform.scale(self.image, (50, 100))
       self.rect=self.image.get_rect()
       self.rect.center=(160,520)
 
@@ -109,7 +114,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.speed = speed
 
-        while True:
+        while True:  # spawning away from player
             self.rect.center = (random.randint(40, screen_width - 40), random.randint(-400, -50))
             if abs(self.rect.centerx - player.rect.centerx) > 70:
                 break
@@ -131,7 +136,7 @@ class PowerUp(pygame.sprite.Sprite):
         else:
             self.image = pygame.image.load(os.path.join(ASSETS, "repair.png"))
 
-        self.image = pygame.transform.scale(self.image, (40, 40))
+        self.image = pygame.transform.scale(self.image, (45, 45))
         self.spawn_time = pygame.time.get_ticks()
 
         self.rect = self.image.get_rect()
@@ -144,6 +149,9 @@ class PowerUp(pygame.sprite.Sprite):
         if pygame.time.get_ticks() - self.spawn_time > 8000:
             self.kill()
 
+
+
+# main function controlling gameplay, spawning, collisions and score
 def game_loop(username):
     global running, speed, speed_level, speed_coin, coins_collected, score
 
@@ -157,8 +165,8 @@ def game_loop(username):
 
     speed = base_speed
 
-    speed_level=0
-    speed_coin=3
+    speed_level=0  #increases every N coins
+    speed_coin=3  #coin falling speed
     coins_collected=0
     score=0
     running=True
@@ -195,7 +203,7 @@ def game_loop(username):
 
     while running:
         for event in pygame.event.get():
-          if event.type==SPAWN_COIN:
+          if event.type==SPAWN_COIN:  #spawning coins with limit and probability
             if len(coins)<3 and random.random()<0.7:
               new_coin=Coin()
               coins.add(new_coin)
@@ -203,7 +211,7 @@ def game_loop(username):
 
           if  event.type==pygame.QUIT:
               running=False
-          if event.type == SPAWN_ENEMY:
+          if event.type == SPAWN_ENEMY: #spawning enemies, increasing difficulty over time
               if len(enemies) < 2:
                   new_enemy = Enemy()
                   new_enemy.speed = speed   
@@ -219,17 +227,20 @@ def game_loop(username):
               p = PowerUp()
               powerups.add(p)
               all_sprites.add(p)
+
+
         screen.blit(background,(0,0))
-        distance += speed * 0.05
-        score = coins_collected + int(distance // 10) + (speed_level * 10)
-        remaining = max(0, finish_distance - distance)
+
+        distance += speed * 0.05  # distance increases proportionally to speed
+        score = coins_collected + int(distance // 10) + (speed_level * 10) #score combines coins + distance + difficulty scaling
+        remaining = max(0, finish_distance - distance)     #how much distance left to win
         scores = font_small.render(f"Score:{str(score)}", True, (0,0,0))
         screen.blit(scores, (10,10))
         distance_text = font_small.render(f"Distance: {int(distance)}m", True, (0,0,0))
         screen.blit(distance_text, (10, 40))
-
         remaining_text = font_small.render(f"Left: {int(remaining)}m", True, (0,0,0))
         if active_power == "nitro":
+           # calculating remaining nitro time
             left = (4000 - (pygame.time.get_ticks() - power_timer)) // 1000
             power_text = font_small.render(f"Nitro: {left}s", True, (0,0,0))
         elif shield:
@@ -240,7 +251,7 @@ def game_loop(username):
         screen.blit(power_text, (10, 100))
         screen.blit(remaining_text, (10, 70))
 
-        for entity in all_sprites:
+        for entity in all_sprites:  # updating and drawing all objects
           screen.blit(entity.image,entity.rect)
           entity.move()
         for e in enemies:
@@ -274,7 +285,6 @@ def game_loop(username):
 
               waiting = True
               while waiting:
-                  mouse = pygame.mouse.get_pos()
                   for rect, label in [(retry_rect, "RETRY"), (menu_rect, "MENU")]:
                       pygame.draw.rect(screen, (80,80,80), rect, border_radius=8)
                       lbl = font_small.render(label, True, (255,255,255))
@@ -290,6 +300,8 @@ def game_loop(username):
                               waiting = False
               return
           
+
+
 
         hit_obstacle = pygame.sprite.spritecollideany(P1, obstacles)
 
@@ -360,6 +372,7 @@ def game_loop(username):
           coins_collected+=coin.weight
         
         new_level=coins_collected//N
+        
         if new_level>speed_level:
           speed+=2
           speed_level=new_level

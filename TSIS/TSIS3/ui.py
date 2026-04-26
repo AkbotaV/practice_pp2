@@ -61,6 +61,8 @@ def main_menu(screen):
 
         pygame.display.update()
 
+
+
 def username_input(screen):
     name = ""
 
@@ -120,7 +122,7 @@ def settings_screen(screen, settings):
     color_btn = pygame.Rect(100, 320, 200, 40)
 
     DIFFICULTIES = ["easy", "normal", "hard"]
-    COLORS = ["red", "blue", "green", "yellow"]
+    COLORS = ["red", "blue", "green"]
 
     while True:
         screen.fill(WHITE)
