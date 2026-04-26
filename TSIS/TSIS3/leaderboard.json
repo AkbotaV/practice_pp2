@@ -1,5 +1,20 @@
 [
     {
+        "name": "\u0432\u0432\u0432",
+        "score": 367,
+        "distance": 573
+    },
+    {
+        "name": "\u0430\u0430\u0430",
+        "score": 344,
+        "distance": 444
+    },
+    {
+        "name": "\u0440\u0440\u0440",
+        "score": 254,
+        "distance": 346
+    },
+    {
         "name": "s",
         "score": 243,
         "distance": 339
@@ -10,6 +25,11 @@
         "distance": 313
     },
     {
+        "name": "\u0440\u0440\u0440",
+        "score": 211,
+        "distance": 519
+    },
+    {
         "name": "s",
         "score": 178,
         "distance": 189
@@ -18,5 +38,15 @@
         "name": "www",
         "score": 94,
         "distance": 148
+    },
+    {
+        "name": "sss",
+        "score": 87,
+        "distance": 75
+    },
+    {
+        "name": "sss",
+        "score": 75,
+        "distance": 52
     }
 ]

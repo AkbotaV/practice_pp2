@@ -47,9 +47,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.center=(random.randint(30,370),0)
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self,color):
       super().__init__()
-      self.image = pygame.image.load(os.path.join(ASSETS, "Player.png"))
+      self.image = pygame.image.load(os.path.join(ASSETS, f"player_{color}.png"))
+      self.image = pygame.transform.scale(self.image, (50, 80))
       self.rect=self.image.get_rect()
       self.rect.center=(160,520)
 
@@ -123,16 +124,15 @@ class PowerUp(pygame.sprite.Sprite):
 
         self.type = random.choice(["nitro", "shield", "repair"])
 
-        self.image = pygame.Surface((30, 30))
-
-        self.spawn_time = pygame.time.get_ticks()
-
         if self.type == "nitro":
-            self.image.fill((200, 0, 200))
+            self.image = pygame.image.load(os.path.join(ASSETS, "nitro.png"))
         elif self.type == "shield":
-            self.image.fill((0, 0, 255))
+            self.image = pygame.image.load(os.path.join(ASSETS, "shield.png"))
         else:
-            self.image.fill((0, 200, 0))
+            self.image = pygame.image.load(os.path.join(ASSETS, "repair.png"))
+
+        self.image = pygame.transform.scale(self.image, (40, 40))
+        self.spawn_time = pygame.time.get_ticks()
 
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(40, screen_width - 40), -50)
@@ -176,7 +176,7 @@ def game_loop(username):
     SPAWN_POWER = pygame.USEREVENT + 5
     pygame.time.set_timer(SPAWN_POWER, 6000)
 
-    P1=Player()
+    P1 = Player(settings["car_color"])
     E1=Enemy()
 
     enemies=pygame.sprite.Group()
