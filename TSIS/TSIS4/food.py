@@ -11,10 +11,10 @@ class Food(GameObject):
         # Different colors and lifetime for different food
     if self.weight == 1:
             color = (255, 0, 0)       # red
-            self.lifetime = 100000      # 5 seconds
+            self.lifetime = 100000      # 100 seconds
     elif self.weight == 2:
-            color = (255, 165, 0)     # orange
-            self.lifetime = 40000      # 4 seconds
+            color = (255, 165, 0)     # orange-yellow
+            self.lifetime = 40000      # 40 seconds
     else:
             color = (128, 0, 128)     # purple
             self.lifetime = 3000      # 3 seconds
@@ -72,7 +72,7 @@ class Poison_food(GameObject):
                     break
             if ok:
                 break
-        super().__init__([Point(x,y)],(120,20,20),tile_width)
+        super().__init__([Point(x,y)],(120,20,20),tile_width) #brown red
 
 
     def can_eat(self,head_location):

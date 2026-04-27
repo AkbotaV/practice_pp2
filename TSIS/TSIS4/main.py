@@ -122,7 +122,7 @@ while running:
             settings["grid"] = not settings["grid"]
         elif sound_button.collidepoint(event.pos):
             settings["sound"] = not settings["sound"]
-        elif pygame.Rect(150, 180, 100, 30).collidepoint(event.pos):  # ← добавь
+        elif pygame.Rect(150, 180, 100, 30).collidepoint(event.pos):  
             colors = [
                 [64, 70, 194],    # синий (дефолт)
                 [0, 200, 80],     # зелёный
@@ -186,7 +186,8 @@ while running:
       b = small_font.render(f"Best:  {personal_best}", True, (0, 0, 0))
       screen.blit(s, (140, 120))
       screen.blit(l, (140, 150))
-      screen.blit(b, (140, 180))
+      screen.blit(b, (140, 200))
+      quit_button        = pygame.Rect(120, 230, 160, 35)
 
       draw_button(screen, play_button, "Retry")
       draw_button(screen, quit_button, "Menu")

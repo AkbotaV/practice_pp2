@@ -34,30 +34,30 @@ class Wall(GameObject):
 
     def add_obstacles(self, worm):
         import random
-        count = 5 + self.level * 2  # чем выше уровень, тем больше блоков
+        count = 5 + self.level * 2  
 
         attempts = 0
         added = 0
         while added < count and attempts < 500:
             attempts += 1
-            x = random.randrange(20, 380, self.tile_width)  # не у самого края
+            x = random.randrange(20, 380, self.tile_width)  
             y = random.randrange(20, 280, self.tile_width)
 
             ok = True
 
-            # не на змейке
+            
             for p in worm.points:
                 if p.X == x and p.Y == y:
                     ok = False
                     break
 
-            # не на существующей стене
+            
             for p in self.points:
                 if p.X == x and p.Y == y:
                     ok = False
                     break
 
-            # не рядом с головой змейки (зона безопасности 3 клетки)
+            
             head = worm.points[0]
             if abs(head.X - x) < self.tile_width * 3 and abs(head.Y - y) < self.tile_width * 3:
                 ok = False
