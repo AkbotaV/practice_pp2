@@ -27,7 +27,7 @@ $$;
  
  
 
- 
+
 CREATE OR REPLACE PROCEDURE move_to_group(
     p_contact_name VARCHAR,
     p_group_name   VARCHAR
@@ -90,3 +90,28 @@ BEGIN
 END;
 $$;
  
+
+CREATE OR REPLACE FUNCTION get_contacts_page(p_limit INT, p_offset INT)
+RETURNS TABLE(
+    id INT,
+    username VARCHAR,
+    email VARCHAR,
+    birthday DATE,
+    phones TEXT
+)
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        c.id,
+        c.username,
+        c.email,
+        c.birthday,
+        STRING_AGG(p.phone, ', ') AS phones
+    FROM contacts c
+    LEFT JOIN phones p ON p.contact_id = c.id
+    GROUP BY c.id
+    ORDER BY c.id
+    LIMIT p_limit OFFSET p_offset;
+END;
+$$ LANGUAGE plpgsql;

@@ -97,7 +97,7 @@ def filter_by_group():
         FROM contacts c
         JOIN groups g ON c.group_id = g.id
         WHERE g.name ILIKE %s
-    """, (group,))
+    """, (f"%{group}%",))
 
     for row in cur.fetchall():
         print(row)
@@ -134,11 +134,7 @@ def pagination():
         conn = connect()
         cur = conn.cursor()
 
-        cur.execute("""
-            SELECT username, email, birthday
-            FROM contacts
-            LIMIT %s OFFSET %s
-        """, (limit, offset))
+        cur.execute("SELECT * FROM get_contacts_paginated(%s, %s)", (limit, offset))
 
         rows = cur.fetchall()
 

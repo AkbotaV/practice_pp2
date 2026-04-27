@@ -67,7 +67,7 @@ def step(screen, x, y, origin_color, fill_color):
 
 def saveCanvas():
     time = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = "paint_" + time + ".png"
+    filename = "paint_" + time + ".jpeg"
     pygame.image.save(screen, filename)
     print("saved:", filename)
 
